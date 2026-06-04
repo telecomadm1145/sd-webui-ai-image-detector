@@ -266,5 +266,25 @@ class AIImageDetector:
         return result_dict, predicted_label, confidence
 
 
+def get_ai_score(result_dict):
+    """
+    Extract the total 'AI' probability from a result dict.
+    Handles both 2-class and 4-class label formats:
+      - 2-class: labels are "AI" and "Non-AI"
+      - 4-class: labels are "non_ai", "ai", "ani_non_ai", "ani_ai"
+    Returns a float in [0, 1] representing total AI probability.
+    """
+    if result_dict is None:
+        return 0.0
+
+    ai_score = 0.0
+    for label, prob in result_dict.items():
+        label_lower = label.lower().replace("-", "_")
+        # Match "AI", "ai", "ani_ai" but NOT "non_ai", "ani_non_ai"
+        if label_lower == "ai" or label_lower == "ani_ai":
+            ai_score += prob
+    return ai_score
+
+
 # Global singleton instance
 detector = AIImageDetector()

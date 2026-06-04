@@ -65,6 +65,19 @@ Restart the WebUI. Dependencies (`timm`, `pytorch-grad-cam`, `safetensors`, `hug
 3. Select a model
 4. Generate images as usual — detection results are printed in the console and appended to generation info
 
+### 🎲 Auto-Roll (Score-Based Re-Generation)
+
+Automatically re-generates images until they score **below** an AI detection threshold — useful for filtering out images that look too obviously AI-generated.
+
+1. In **txt2img** or **img2img**, select **"🎲 AI Detector Auto-Roll"** from the **Script** dropdown
+2. Configure:
+   - **Detection Model** — which model to use for scoring
+   - **Max AI Score** — reject images above this threshold (e.g., `0.5` = 50%)
+   - **Max Roll Attempts** — how many rounds of generation to try (default: 10)
+   - **Keep best on fail** — if no image passes, keep the one with the lowest AI score
+3. Click **Generate** — the extension will loop, re-generating with different seeds each round
+4. Only images that pass the AI score threshold are kept in the final output
+
 ## 🏗️ Supported Models
 
 | Name | Backbone | Classes | Input Size | Source |
