@@ -1,0 +1,4 @@
+timm>=0.9.0
+pytorch-grad-cam>=1.4.0
+safetensors
+huggingface_hub
